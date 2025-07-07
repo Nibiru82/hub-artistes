@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yvnnis : L'Exploration Interactive</title>
+    <meta name="description" content="Plongez dans l'univers de Yvnnis, entre mélodies célestes et introspection brute.">
+    <meta name="keywords" content="Yvnnis, rap fr, L'AFRO OU LES TRESSES, NOVAE, PARHELIA, new wave">
+    
+    <link rel="icon" type="image/png" href="/public/favicon.ico"> <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* gray-900 */
+            color: #E5E7EB; /* gray-200 */
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6D28D9; /* violet-700 */
+            transition: width 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #8B5CF6; /* violet-500 */
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 2rem;
+            width: 2px;
+            height: calc(100% - 2rem);
+            background-color: #374151; /* gray-700 */
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 18px;
+            height: 18px;
+            background-color: #111827;
+            border: 3px solid #8B5CF6; /* violet-500 */
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .loader {
+            border: 2px solid #4B5563; /* gray-600 */
+            border-top: 2px solid #8B5CF6; /* violet-500 */
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .gemini-btn {
+            background-image: linear-gradient(to right, #6D28D9, #8B5CF6);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-gray-900/50 backdrop-blur-md sticky top-0 z-50 shadow-lg shadow-black/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-tighter text-white">YVNNIS</h1>
+            <div id="nav-links" class="hidden md:flex items-center space-x-8 text-sm font-semibold uppercase tracking-wider text-gray-400">
+                <a href="#introduction" data-section="introduction" class="nav-link active">Introduction</a>
+                <a href="#parcours" data-section="parcours" class="nav-link">Parcours</a>
+                <a href="#univers" data-section="univers" class="nav-link">Univers</a>
+                <a href="#sonorites" data-section="sonorites" class="nav-link">Sonorités</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden text-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 p-4">
+             <a href="#introduction" data-section="introduction" class="block py-2 text-center nav-link-mobile">Introduction</a>
+             <a href="#parcours" data-section="parcours" class="block py-2 text-center nav-link-mobile">Parcours</a>
+             <a href="#univers" data-section="univers" class="block py-2 text-center nav-link-mobile">Univers</a>
+             <a href="#sonorites" data-section="sonorites" class="block py-2 text-center nav-link-mobile">Sonorités</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-16">
+
+        <section id="introduction" class="content-section active">
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-white leading-tight">LA NOUVELLE ÉTOILE</h2>
+                <p class="mt-4 text-lg md:text-xl text-gray-400">Un artiste en constante évolution, entre la technique et l'émotion pure.</p>
+                <div class="mt-12 bg-gray-800/50 p-8 rounded-xl shadow-lg border border-gray-700">
+                    <p class="text-2xl md:text-3xl font-semibold italic text-violet-400">« J’ai mis ma tête sur la cover, j’montre pas qu’la moitié. »</p>
+                    <p class="mt-2 text-sm text-gray-500">- LE PIÈGE</p>
+                </div>
+                <div class="mt-12 text-left text-base text-gray-300 leading-relaxed space-y-4">
+                    <p>Yvnnis s'est rapidement imposé comme l'une des figures les plus prometteuses de la nouvelle scène du rap français. Caractérisé par une technique précise, des flows variés et une capacité à créer des mélodies entêtantes, il construit une œuvre dense et cohérente. Sa musique est un point de rencontre entre l'efficacité des bangers et une vulnérabilité touchante.</p>
+                    <p>Cette page vous guide à travers sa trajectoire stellaire. Explorez son parcours, de la lumière de *PARHELIA* à l'affirmation de *L'AFRO OU LES TRESSES*, et analysez les thèmes de l'identité et de l'ambition qui sont au cœur de son art.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="parcours" class="content-section">
+             <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-white">Parcours</h2>
+                <p class="mt-4 text-lg text-gray-400">Une chronologie des projets majeurs de Yvnnis. Cliquez pour explorer et générer une analyse par l'IA.</p>
+            </div>
+            <div class="mt-16 max-w-5xl mx-auto">
+                <div id="timeline" class="relative border-l-2 border-gray-700 ml-4 py-4"></div>
+                <div id="timeline-details" class="mt-8"></div>
+            </div>
+        </section>
+
+        <section id="univers" class="content-section">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-white">L'Univers Symbolique</h2>
+                <p class="mt-4 text-lg text-gray-400">De l'astronomie à l'affirmation de soi, l'univers de Yvnnis est riche en concepts. Explorez ces thèmes et utilisez l'IA pour en décoder la signification.</p>
+            </div>
+            <div id="univers-grid" class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                 </div>
+        </section>
+
+        <section id="sonorites" class="content-section">
+             <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-white">Signature Sonore</h2>
+                <p class="mt-4 text-lg text-gray-400">Yvnnis se distingue par sa polyvalence, capable de passer de productions Jersey percutantes à des morceaux introspectifs et mélodiques.</p>
+            </div>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-violet-400">La Maîtrise Mélodique</h3>
+                        <p class="mt-2 text-gray-300 leading-relaxed">Au cœur de l'art de Yvnnis se trouve une science de la mélodie. Qu'il pose sur des prods planantes ou plus rythmées, il trouve toujours le gimmick vocal, l'autotune juste, ou la ligne de chant qui reste en tête. C'est cette force qui lui permet de créer des morceaux aussi bien introspectifs qu'efficaces en club.</p>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold text-violet-400">L'Énergie Jersey Club</h3>
+                        <p class="mt-2 text-gray-300 leading-relaxed">Avec des titres comme <span class="font-bold text-white">Champagne & Jerseys</span>, Yvnnis a su s'approprier les codes du Jersey Club, un genre électronique caractérisé par ses kicks rapides et ses samples vocaux découpés. Il utilise cette énergie pour créer des bangers irrésistibles, prouvant sa capacité à s'adapter et à innover.</p>
+                    </div>
+                </div>
+                <div>
+                     <div class="chart-container" style="position: relative; height:60vh; width:80vw; max-width: 500px;">
+                        <canvas id="styleChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">Analyse de la palette sonore de Yvnnis.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 mt-16 border-t border-gray-800">
+        <p class="text-sm text-gray-500">Une exploration interactive de l'univers de Yvnnis.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            async function fetchFromGemini(prompt) {
+                try {
+                    const response = await fetch('/api/gemini-proxy', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: prompt })
+                    });
+                    if (!response.ok) {
+                       const errorData = await response.json();
+                       throw new Error(`Erreur du serveur proxy: ${errorData.error?.message || response.statusText}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error("Erreur d'appel à l'API Gemini:", error);
+                    return { error: `Une erreur est survenue lors de la connexion à l'IA. Détails: ${error.message}` };
+                }
+            }
+            
+            async function generateAndDisplay(button, outputDiv, prompt) {
+                button.disabled = true;
+                outputDiv.style.display = 'block';
+                outputDiv.innerHTML = '<div class="flex items-center gap-2"><div class="loader"></div><span>Analyse en cours...</span></div>';
+
+                const result = await fetchFromGemini(prompt);
+                
+                if (result.error) {
+                    outputDiv.innerHTML = result.error;
+                } else if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                    outputDiv.innerHTML = result.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+                } else {
+                    outputDiv.innerHTML = "Désolé, la réponse de l'IA est invalide ou vide.";
+                }
+                button.textContent = 'Analyse générée ✨';
+            }
+
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('#nav-links .nav-link');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu .nav-link-mobile');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Données spécifiques à Yvnnis
+            const timelineData = [
+                { year: '2022', title: 'PARHELIA', type: 'Album', description: "Projet qui le place sur la carte. Une œuvre dense et introspective où il déploie sa technique et ses mélodies sur des productions sombres et atmosphériques." },
+                { year: '2023', title: 'NOVAE', type: 'Album', description: "Avec ce projet, Yvnnis confirme son statut. Le son est plus affirmé, les thèmes de l'ambition et de la réussite sont centraux. Le nom 'NOVAE' symbolise son explosion sur la scène rap." },
+                { year: '2024', title: 'L\'AFRO OU LES TRESSES', type: 'Album', description: "Un album plus personnel et mature. Yvnnis y explore les questions d'identité, de choix de vie et de perception de soi, avec des sonorités variées allant de la Jersey Club à des ballades plus calmes." }
+            ];
+
+            const universData = [
+                {
+                    title: "La Métaphore Céleste",
+                    description: "De PARHELIA (un phénomène optique lié au soleil) à NOVAE (une nouvelle étoile qui explose en lumière), Yvnnis utilise le champ lexical de l'astronomie pour décrire sa propre trajectoire. C'est une manière de lier son ambition personnelle à la grandeur et au mystère de l'univers, se voyant comme une étoile en pleine ascension.",
+                    prompt: "Analyse en 3 phrases la 'métaphore céleste' dans les titres d'albums de Yvnnis (PARHELIA, NOVAE). Explique ce que cela révèle de sa vision artistique et de son ambition."
+                },
+                {
+                    title: "La Question d'Identité",
+                    description: "Le titre de son dernier album, 'L'AFRO OU LES TRESSES', est une question ouverte sur l'identité, l'apparence et les choix qui nous définissent. Pour Yvnnis, ce n'est pas qu'une question de coiffure, mais une métaphore plus large sur les chemins de vie que l'on emprunte et la manière dont on se présente au monde. C'est le reflet d'un artiste qui se questionne et s'affirme.",
+                    prompt: "Explique en 3 phrases la signification du titre 'L'AFRO OU LES TRESSES' de Yvnnis comme une métaphore de l'identité et du choix. Va au-delà de la simple question de coiffure."
+                }
+            ];
+
+            function switchSection(sectionId) {
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId)?.classList.add('active');
+                navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === sectionId));
+            }
+
+            function setupNav(links) {
+                links.forEach(link => link.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchSection(link.dataset.section);
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }));
+            }
+
+            setupNav(navLinks);
+            setupNav(mobileNavLinks);
+            if(mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+
+            const timelineContainer = document.getElementById('timeline');
+            const timelineDetailsContainer = document.getElementById('timeline-details');
+            if(timelineData && timelineContainer) {
+                timelineData.forEach(item => {
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = 'timeline-item relative pl-8 pb-12 cursor-pointer';
+                    timelineItem.innerHTML = `<div class="timeline-dot"></div><p class="text-sm text-violet-500 font-semibold">${item.year}</p><h3 class="text-xl font-bold text-gray-100">${item.title}</h3><p class="text-md text-gray-400">${item.type}</p>`;
+                    timelineItem.addEventListener('click', () => {
+                        timelineDetailsContainer.innerHTML = `<div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700"><h3 class="text-2xl font-bold text-white">${item.title} (${item.year})</h3><p class="mt-2 text-gray-300">${item.description}</p><div class="mt-4"><button class="gemini-btn text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity flex items-center gap-2">✨ Générer une analyse</button><div class="gemini-project-output mt-4 text-sm text-gray-400 border-l-4 border-violet-500 pl-4" style="display: none;"></div></div></div>`;
+                        const geminiBtn = timelineDetailsContainer.querySelector('.gemini-btn');
+                        const outputDiv = timelineDetailsContainer.querySelector('.gemini-project-output');
+                        if (geminiBtn) {
+                            geminiBtn.addEventListener('click', () => {
+                                const prompt = `Rédige une courte analyse critique (environ 50-70 mots) du projet '${item.title}' de Yvnnis, en te basant sur cette description : '${item.description}'. Mets en lumière son ambiance et ses thèmes.`;
+                                generateAndDisplay(geminiBtn, outputDiv, prompt);
+                            });
+                        }
+                    });
+                    timelineContainer.appendChild(timelineItem);
+                });
+                if (timelineContainer.firstElementChild) {
+                    timelineContainer.firstElementChild.click();
+                }
+            }
+
+            const universGrid = document.getElementById('univers-grid');
+            if(universData && universGrid) {
+                universData.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700';
+                    card.innerHTML = `<h3 class="text-2xl font-bold text-white">${item.title}</h3><p class="mt-2 text-gray-300 leading-relaxed">${item.description}</p><div class="mt-4"><button class="gemini-btn text-white px-4 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity flex items-center gap-2">✨ Analyser le concept</button><div class="gemini-univers-output mt-4 text-sm text-gray-400 border-l-4 border-violet-500 pl-4" style="display: none;"></div></div>`;
+                    const geminiBtn = card.querySelector('.gemini-btn');
+                    const outputDiv = card.querySelector('.gemini-univers-output');
+                    if (geminiBtn) {
+                        geminiBtn.addEventListener('click', () => {
+                            generateAndDisplay(geminiBtn, outputDiv, item.prompt);
+                        });
+                    }
+                    universGrid.appendChild(card);
+                });
+            }
+            
+            const ctx = document.getElementById('styleChart')?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Mélodique', 'Introspectif', 'Technique', 'Jersey Club', 'Énergique', 'Cloud Rap'],
+                        datasets: [
+                            { 
+                                label: 'Style Yvnnis', 
+                                data: [9, 8, 8, 7, 7, 6], 
+                                backgroundColor: 'rgba(139, 92, 246, 0.2)', 
+                                borderColor: 'rgba(139, 92, 246, 1)', 
+                                pointBackgroundColor: 'rgba(139, 92, 246, 1)', 
+                                pointBorderColor: '#fff', 
+                                borderWidth: 2 
+                            }
+                        ]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.2)' }, grid: { color: 'rgba(255, 255, 255, 0.2)' }, pointLabels: { font: { size: 12, weight: 'bold' }, color: '#CBD5E0' }, ticks: { display: false, backdropColor: 'transparent' } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            switchSection('introduction');
+        });
+    </script>
+</body>
+</html>
